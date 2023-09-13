@@ -8,8 +8,19 @@
 Ниже прилагаю результат работы программы `human`:
 
 ```bash
-25
-My name is Alex, i`m reading now!
-My name is Alex, i`m walking now!
-My name is Alex, i`m reading now!
+#
+#   so, Alex, how old are you??
+#
+>>> 25
+
+#
+#   So, Alex, what are you doing now??
+#
+>>> My name is Alex, i`m reading now!
+
+#
+#   so, Alex, and what are you doing now?
+#
+>>> My name is Alex, i`m walking now!
+>>> My name is Alex, i`m reading now!
 ```
