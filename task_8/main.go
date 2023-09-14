@@ -10,7 +10,7 @@ func SetBit(num *int64, bitpos int, val int) {
     var p int64 = int64(bitpos)
 
     bitval := v << p
-    *num = (*num | bitval) & (^bitval ^ ((v | 1) << p))
+    *num = (*num | bitval) & (^bitval ^ (1 << p))
 }
 
 func main() {
