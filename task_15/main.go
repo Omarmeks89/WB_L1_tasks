@@ -2,40 +2,23 @@ package main
 
 import (
     "fmt"
-    "errors"
 )
 
-var (
-    IndexError = erorrs.New("Index out of range.")
-)
+var justString string
 
-// Was deleted global variable 
-// separate hugestring creation from
-// slicing. Use hugestring as a ptr.
-func createHugeString(size int) *string {
-    var hugeSrc string
-    return &hugeSrc
-}
-
-// magic-numbers was replaced on named identifyers
-// now we can directly set wished slice size
-func someFunc(source *string, lim int) (string, error) {
-    if lim > len(*source)-1 {
-        return "", IndexError
-    }
-    return (*source)[:lim], nil
+func someFunc() {
+    // Если не создать новую копию для среза
+    // то GC не сможет удалить большую строку
+    // которая неэффективно используется, так как
+    // на нее будет указатель из justString:e
+    v := createHugeString(1 << 10)
+    // Создав новую копию массива для среза
+    // мы удалили указатель с v и теперь его
+    // можно удалить GC, а мы используем и храним
+    // в памяти только нужную часть строки.
+    justString = append(justString, v[:100])
 }
 
 func main() {
-    var justString string
-    hs := createHugeString()
-    // now we can split from hugestring
-    // without creation it any time
-    justString, err := someFunc(hs, 5)
-    if err != nil {
-        fmt.Println(err.Error())
-        return
-    }
-    fmt.Println(justString)
+    someFunc()
 }
-
